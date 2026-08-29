@@ -1,24 +1,23 @@
-# Dependencies
+
 node_modules/
 backend/node_modules/
 frontend/node_modules/
 
-# Kredensial rahasia — JANGAN PERNAH di-push
+
 serviceAccountKey.json
 backend/serviceAccountKey.json
 .env
 .env.local
 
-# Hasil build Tailwind (opsional — boleh di-generate ulang saat deploy)
-# frontend/css/output.css
 
-# File sistem
+
+
 .DS_Store
 Thumbs.db
 
-# Log
+
 npm-debug.log*
 *.log
 
-# Editor
+
 .vscode/
