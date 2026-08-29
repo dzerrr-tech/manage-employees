@@ -24,3 +24,10 @@ app.use('/api/cuti', require('./routes/cuti')(db));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server jalan di port ${PORT}`));
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Server jalan!' });
+});
+
+app.use('/api/karyawan', require('./routes/karyawan')(db));
+// ... routes lain
