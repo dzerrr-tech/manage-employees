@@ -10,7 +10,7 @@ const db = getFirestore();
 async function seed() {
   console.log('Mulai isi data contoh...');
 
-  // Data contoh karyawan
+
   const karyawanRefs = [];
   const karyawanData = [
     { nama: 'Budi Santoso', jabatan: 'Frontend Developer', divisi: 'IT', tanggalMasuk: '2024-01-15', fotoUrl: '' },
@@ -24,7 +24,7 @@ async function seed() {
     console.log('Karyawan ditambahkan:', k.nama, '| id:', ref.id);
   }
 
-  // Data contoh absensi (pakai id karyawan pertama)
+
   await db.collection('absensi').add({
     idKaryawan: karyawanRefs[0],
     tanggal: '2026-08-28',
@@ -33,7 +33,7 @@ async function seed() {
   });
   console.log('Absensi contoh ditambahkan');
 
-  // Data contoh cuti (pakai id karyawan kedua)
+
   await db.collection('cuti').add({
     idKaryawan: karyawanRefs[1],
     tanggalMulai: '2026-09-01',
