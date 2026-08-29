@@ -3,11 +3,11 @@ const cors = require('cors');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-// Inisialisasi Firebase Admin SDK
+
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-  // Perbaiki formatting newline pada private key jika dari Environment Variables Railway
+
   if (serviceAccount.private_key) {
     serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
   }
@@ -36,4 +36,3 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/karyawan', require('./routes/karyawan')(db));
-// ... routes lain
