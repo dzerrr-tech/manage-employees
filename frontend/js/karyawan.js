@@ -1,10 +1,10 @@
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { API_BASE_URL } from './api-config.js';
 
-const API_URL = 'http://localhost:5000/api/karyawan';
+const API_URL = `${API_BASE_URL}/karyawan`;
 let semuaKaryawan = [];
 
-// Proteksi halaman
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = 'index.html';
@@ -19,7 +19,6 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
   window.location.href = 'index.html';
 });
 
-// Toggle sidebar mobile
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 document.getElementById('menuBtn')?.addEventListener('click', () => {
@@ -31,7 +30,6 @@ overlay?.addEventListener('click', () => {
   overlay.classList.add('hidden');
 });
 
-// Ambil semua data karyawan dari backend
 async function muatKaryawan() {
   try {
     const res = await fetch(API_URL);
@@ -70,14 +68,12 @@ function renderTabel(data) {
   );
 }
 
-// Search
 document.getElementById('searchInput').addEventListener('input', (e) => {
   const kata = e.target.value.toLowerCase();
   const hasil = semuaKaryawan.filter(k => k.nama?.toLowerCase().includes(kata));
   renderTabel(hasil);
 });
 
-// Modal
 const modal = document.getElementById('modal');
 const form = document.getElementById('karyawanForm');
 const modalTitle = document.getElementById('modalTitle');
@@ -110,7 +106,6 @@ function bukaModalEdit(id) {
   modal.classList.add('flex');
 }
 
-// Submit form (tambah / edit)
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = document.getElementById('karyawanId').value;

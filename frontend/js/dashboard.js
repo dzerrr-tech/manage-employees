@@ -1,7 +1,6 @@
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-
-const API_URL = 'http://localhost:5000/api';
+import { API_BASE_URL } from './api-config.js';
 
 // Proteksi halaman: kalau belum login, tendang ke halaman login
 onAuthStateChanged(auth, (user) => {
@@ -37,24 +36,20 @@ overlay?.addEventListener('click', () => {
 async function loadDashboardData() {
   try {
     const [karyawanRes, absensiRes, cutiRes] = await Promise.all([
-      fetch(`${API_URL}/karyawan`).then(r => r.json()),
-      fetch(`${API_URL}/absensi`).then(r => r.json()),
-      fetch(`${API_URL}/cuti`).then(r => r.json())
+      fetch(`${API_BASE_URL}/karyawan`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/absensi`).then(r => r.json()),
+      fetch(`${API_BASE_URL}/cuti`).then(r => r.json())
     ]);
 
-    // Total karyawan
     document.getElementById('totalKaryawan').textContent = karyawanRes.length;
 
-    // Hadir hari ini (cocokkan tanggal format YYYY-MM-DD)
     const hariIni = new Date().toISOString().slice(0, 10);
     const hadirHariIni = absensiRes.filter(a => a.tanggal === hariIni).length;
     document.getElementById('hadirHariIni').textContent = hadirHariIni;
 
-    // Cuti dengan status pending
     const cutiPending = cutiRes.filter(c => c.status === 'pending').length;
     document.getElementById('cutiPending').textContent = cutiPending;
 
-    // Tabel karyawan terbaru (ambil 5 terakhir)
     const tabelBody = document.getElementById('tabelKaryawanTerbaru');
     const terbaru = karyawanRes.slice(-5).reverse();
 

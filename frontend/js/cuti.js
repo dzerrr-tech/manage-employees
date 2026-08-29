@@ -1,8 +1,9 @@
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { API_BASE_URL } from './api-config.js';
 
-const API_KARYAWAN = 'http://localhost:5000/api/karyawan';
-const API_CUTI = 'http://localhost:5000/api/cuti';
+const API_KARYAWAN = `${API_BASE_URL}/karyawan`;
+const API_CUTI = `${API_BASE_URL}/cuti`;
 let daftarKaryawan = [];
 
 onAuthStateChanged(auth, (user) => {
@@ -45,7 +46,6 @@ function namaKaryawan(id) {
   return k ? k.nama : '(karyawan tidak ditemukan)';
 }
 
-// Modal
 const modal = document.getElementById('modal');
 document.getElementById('btnAjukan').addEventListener('click', () => {
   document.getElementById('cutiForm').reset();

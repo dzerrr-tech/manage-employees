@@ -1,8 +1,9 @@
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { API_BASE_URL } from './api-config.js';
 
-const API_KARYAWAN = 'http://localhost:5000/api/karyawan';
-const API_ABSENSI = 'http://localhost:5000/api/absensi';
+const API_KARYAWAN = `${API_BASE_URL}/karyawan`;
+const API_ABSENSI = `${API_BASE_URL}/absensi`;
 let daftarKaryawan = [];
 
 onAuthStateChanged(auth, (user) => {
@@ -31,7 +32,6 @@ overlay?.addEventListener('click', () => {
   overlay.classList.add('hidden');
 });
 
-// Isi dropdown pilihan karyawan
 async function muatKaryawanUntukSelect() {
   const res = await fetch(API_KARYAWAN);
   daftarKaryawan = await res.json();
@@ -43,7 +43,6 @@ async function muatKaryawanUntukSelect() {
   select.innerHTML = daftarKaryawan.map(k => `<option value="${k.id}">${k.nama}</option>`).join('');
 }
 
-// Check in
 document.getElementById('absensiForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const idKaryawan = document.getElementById('pilihKaryawan').value;
@@ -62,7 +61,6 @@ document.getElementById('absensiForm').addEventListener('submit', async (e) => {
   muatAbsensi();
 });
 
-// Ambil dan render rekap absensi
 async function muatAbsensi() {
   const res = await fetch(API_ABSENSI);
   const data = await res.json();
