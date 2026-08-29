@@ -3,31 +3,37 @@ const cors = require('cors');
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-// Kalau ada env variable FIREBASE_SERVICE_ACCOUNT (di server/Railway), pakai itu.
-// Kalau tidak ada (di laptop lokal), baca dari file serviceAccountKey.json.
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-  : require('./serviceAccountKey.json');
+// Inisialisasi Firebase Admin SDK
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  // Perbaiki formatting newline pada private key jika dari Environment Variables Railway
+  if (serviceAccount.private_key) {
+    serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+  }
+} else {
+  serviceAccount = require('./serviceAccountKey.json');
+}
 
 initializeApp({
   credential: cert(serviceAccount)
 });
-const db = getFirestore();
 
+const db = getFirestore();
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
+// Routes API
 app.use('/api/karyawan', require('./routes/karyawan')(db));
 app.use('/api/absensi', require('./routes/absensi')(db));
 app.use('/api/cuti', require('./routes/cuti')(db));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server jalan di port ${PORT}`));
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Server jalan!' });
+// Root Endpoint khusus API Health Check
+app.get('/api/health', (req, res) => {
+  res.json({ message: 'Server jalan!', status: 'ok' });
 });
 
-app.use('/api/karyawan', require('./routes/karyawan')(db));
-// ... routes lain
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server jalan di port ${PORT}`));
