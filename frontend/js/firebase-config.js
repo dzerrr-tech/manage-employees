@@ -2,12 +2,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCRLOsf166VNsodvjVBRDUOgW1ISTrNV-0", // Isi dengan API Key asli dari Firebase Console
+  apiKey: "AIzaSyCRLOsf166VNsodvjVBRDUOgW1ISTrNV-0", 
   authDomain: "managerbyabidzar.firebaseapp.com",
   projectId: "managerbyabidzar",
   storageBucket: "managerbyabidzar.appspot.com",
-  messagingSenderId: "895354084443", // Isi dengan Sender ID asli
-  appId: "1:895354084443:web:6911e1929474240ceab37e" // Isi dengan App ID asli
+  messagingSenderId: "895354084443", 
+  appId: "1:895354084443:web:6911e1929474240ceab37e" 
 };
 
 const app = initializeApp(firebaseConfig);
