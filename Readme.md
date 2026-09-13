@@ -83,13 +83,15 @@ Development & Tools
       ▼      ▼      ▼
  Karyawan   Cuti   Absensi
   Routes   Routes   Routes
+```
 
-Authentication is handled separately through Firebase Authentication.
+Authentication is handled separately through **Firebase Authentication**.
 
 ---
 
-📁 Project Structure
+## 📁 Project Structure
 
+```text
 manage-employees-main/
 │
 ├── backend/
@@ -123,7 +125,7 @@ manage-employees-main/
     ├── karyawan.html
     ├── package.json
     └── tailwind.config.js
-
+```
 ---
 
 🔌 REST API
