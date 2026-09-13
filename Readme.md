@@ -64,29 +64,25 @@ Development & Tools
 - Netlify
 
 ---
+## 🏗️ Architecture
 
-🏗️ Architecture
-
+```text
 ┌─────────────────────────┐
-│       Frontend          │
-│ HTML + JS + Tailwind    │
+│        Frontend         │
+│   HTML + JS + Tailwind  │
 └────────────┬────────────┘
              │
              │ Fetch API
              ▼
 ┌─────────────────────────┐
 │      Express.js API     │
-│        Node.js          │
+│         Node.js         │
 └────────────┬────────────┘
              │
-       ┌─────┴─────┐
-       ▼           ▼
-  Karyawan       Cuti
-  Routes         Routes
-       │           │
-       └─────┬─────┘
-             ▼
-        Absensi API
+      ┌──────┼──────┐
+      ▼      ▼      ▼
+ Karyawan   Cuti   Absensi
+  Routes   Routes   Routes
 
 Authentication is handled separately through Firebase Authentication.
 
@@ -210,16 +206,16 @@ For production environments, environment variables and secure configuration shou
 ## 🖥️ Screenshots
 
 ### Login
-![Login](screenshots/login.png)
+![Login](1789293309270.jpg)
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](Screenshot_20260913-164639.jpg)
 
 ### Employee Management
-![Employee Management](screenshots/karyawan.png)
+![Employee Management](Screenshot_20260913-164658.jpg)
 
 ### Leave Management
-![Leave Management](screenshots/cuti.png)
+![Leave Management](Screenshot_20260913-164717.jpg)
 
 ---
 
